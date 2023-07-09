@@ -1,3 +1,6 @@
+
+
+
 class BankAccount:
     balance=0
     all_accounts=[]
@@ -28,30 +31,39 @@ class BankAccount:
     @classmethod
     def find_accounts(cls):
         for account in cls.all_accounts:
-            print(f"""Account balance={account.balance}, Interest rate={account.int_rate}""")
+            print(f"Account balance={account.balance}, Interest rate={account.int_rate}")
+
 class User:
     def __init__(self, name, email):
         self.name=name
         self.email=email
         self.account= BankAccount(int_rate=.01, balance=0)
-    def make_deposit(self):
-        self.account.deposit()
-    def make_withdrawal(self):
-        self.account.withdraw()
+    def make_deposit(self, amount):
+        self.account.deposit(amount)
+        print(self.account.balance)
+        return self
+        
+    def make_withdrawal(self,amount):
+        self.account.withdraw(amount)
+        print(self.account.balance)
+        return self
+        
     def display_user_balance(self):
         self.account.display_account_info()
-
-    
-
+        print(self.account.balance)
+        return self
 
 
 user_brittany=BankAccount(.01, 100)
 user_brittany.deposit(50).deposit(75).deposit(100).withdraw(90).yield_interest().display_account_info()
 
 user1=User("Brittany", "brittanyfranics200@gmail.com")
-#user1.make_deposit()
-"""user_clinton=BankAccount(.01, 200)
+user1.display_user_balance()
+user1.make_deposit(100)
+user1.make_deposit(200)
+user1.make_withdrawal(70)
+user1.display_user_balance()
+user_clinton=BankAccount(.01, 200)
 user_clinton.deposit(800).deposit(9.90).withdraw(150).withdraw(70).withdraw(8.50).withdraw(32).yield_interest().display_account_info()
 
-BankAccount.find_accounts()
-"""
+
