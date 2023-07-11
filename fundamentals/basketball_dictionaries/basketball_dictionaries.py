@@ -45,24 +45,20 @@ class Player:
         self.position = dictionary["position"]
         self.team = dictionary["team"]
         print(self.name)
+        Player.team_list.append(self)
+        
     @classmethod
-    
     def get_team(cls,list):
         for player in list:
             cls.team_list.append(Player(player))
         print(cls.team_list)
 
-Player.get_team(players)        
-new_team=[]
+#Player.get_team(players)   
+
+
 for player in players:
-    new_team.append(Player(player))
-print(new_team)
-
- 
-   
-    
-
-
+    Player(player)
+print(Player.team_list)
 
 
 player_Kevin=Player(players[0])
