@@ -1,0 +1,29 @@
+VALUES ("Brittany", "Francis", "bb080964@yahoo.com", NOW(), NOW()),
+("Clinton", "Butler", "cb@gmail.com", NOW(), NOW()),
+("Ryan", "Francis", "rjf@cmu.edu", NOW(), NOW());
+
+SELECT *
+FROM users
+
+SELECT *
+FROM users
+WHERE email="bb080964@yahoo.com";
+
+SELECT *
+FROM users
+WHERE idusers=3;
+
+UPDATE users
+SET last_name="Pancakes"
+WHERE idusers=3
+
+DELETE FROM users
+WHERE idusers=2
+
+SELECT *
+FROM users
+ORDER BY first_name
+
+SELECT *
+FROM users
+ORDER BY first_name DESC

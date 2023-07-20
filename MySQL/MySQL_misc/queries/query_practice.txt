@@ -1,0 +1,18 @@
+SELECT name
+FROM NAMES;
+
+INSERT INTO names(name)
+VALUES ("Brittany Francis")
+
+INSERT INTO names (name)
+VALUES ("Clinton"),
+	(“KEANU"),
+           ("Cobu"),
+           ("Zimba");
+
+UPDATE names
+SET name=“Ellen”
+WHERE id=12
+
+DELETE FROM names
+WHERE id=12

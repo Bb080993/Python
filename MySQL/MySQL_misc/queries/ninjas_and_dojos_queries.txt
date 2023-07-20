@@ -1,0 +1,49 @@
+
+INSERT INTO dojos (name)
+VALUES ("Music Dojo"),
+("Art Dojo"),
+("Karate Dojo")
+
+DELETE FROM dojos
+WHERE id IN (1, 2, 3)
+
+INSERT INTO dojos (name)
+VALUES ("Sport Dojo"),
+("Piano Dojo"),
+("Movie Dojo")
+
+INSERT INTO ninjas(first_name, last_name, age, dojo_id)
+VALUES ("Brittany", "Francis", 29, 4),
+("Clinton", "Butler", 30, 4),
+("Cobu", "The Cat", 5, 4)
+
+INSERT INTO ninjas(first_name, last_name, age, dojo_id)
+VALUES ("Ellen", "Francis", 65, 5),
+("Melinda", "Butler", 62, 5),
+("Zimba", "The Cat", 5, 5)
+
+INSERT INTO ninjas(first_name, last_name, age, dojo_id)
+VALUES ("Jim", "Francis", 65, 6),
+("Mike", "Butler", 62, 6),
+("Keanu", "The Cat", 5, 6)
+
+SELECT * 
+FROM ninjas
+WHERE dojo_id=4
+
+SELECT * 
+FROM ninjas
+WHERE dojo_id=5
+
+SELECT * 
+FROM ninjas
+WHERE dojo_id=6
+
+SELECT * FROM ninjas
+JOIN dojos
+ON dojos.id=ninjas.dojo_id
+WHERE ninjas.id=6
+
+SELECT * FROM ninjas
+JOIN dojos
+ON dojos.id=ninjas.dojo_id
