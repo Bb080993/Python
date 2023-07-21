@@ -1,0 +1,24 @@
+INSERT INTO users(first_name, last_name, email, password, street_address)
+VALUES ("Brittany", "Francis", "bf@gmail.com", "12345", "1 Acorn Drive, Happy City, NC, 12345"),
+("Shafkat", "Ali", "sali@gmail.com", "54321", "5 Elm Street, Nightmare City, NY, 54321")
+
+INSERT INTO pizzas (crust_type, size, quantity)
+VALUES ("thin crust", "small", 3),
+("Stuffed crust", "medium", 2),
+("thin crust", "large", 1);
+
+INSERT INTO toppings (topping_name)
+VALUES ("pepperoni"),
+("Mushrooms"),
+("Olives"),
+("Broccoli"),
+("Extra cheese")
+
+INSERT INTO pizzas_has_toppings (pizza_id, topping_id)
+VALUES (1,1), (1,2), (2,3), (2,4)
+
+SELECT pizzas.crust_type, toppings.topping_name
+FROM pizzas
+LEFT JOIN pizzas_has_toppings ON pizzas_has_toppings.pizza_id=pizzas.id
+LEFT JOIN toppings ON pizzas_has_toppings.topping_id=toppings.id
+WHERE pizzas.id=1
