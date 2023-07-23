@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: midnightblue;
+}
+#container{
+    margin: 0 auto;
+    height: 25%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+button{
+    background-color: rgb(225, 226, 244);
+    color: rgb(13, 180, 231);
+    border-radius: 30px;
+    padding: 5px;
+    border: 2px solid midnightblue;
+    margin: 10px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+
+}

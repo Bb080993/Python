@@ -10,24 +10,20 @@
 <body>
     <div class="container">
         <table>
-            {%for i in range(0,num1)%}
+            {%for i in range(num1)%}
                 <tr>
-                    {%for j in range(0,4)%}
-                    <td class="color1"></td>
-                    <td class="color2"></td>
+                    {%for j in range(num2)%}
+                        {%if (j+i)%2==0:%}
+                            <td class="color1"></td>
+                        {%else:%}
+                            <td class="color2"></td>
+                        {%endif%}
                     {%endfor%}
                 </tr>
-                <tr>
-                    {%for j in range(0,4)%}
-                    <td class="color2"></td>
-                    <td class="color1"></td>
-                    {%endfor%}
-                </tr>
-
             {%endfor%}
         </table>
-       
     </div>
+
     
 </body>
 </html>

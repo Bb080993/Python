@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../understanding_routing"
+		},
+		{
+			"path": "../playground"
+		},
+		{
+			"path": "../checkerboard"
+		},
+		{
+			"path": "../jinja_table"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../counter"
+		}
+	],
+	"settings": {}
+}

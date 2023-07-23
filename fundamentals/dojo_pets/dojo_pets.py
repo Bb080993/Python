@@ -26,7 +26,7 @@ ninja_Brittany.pet=pet_Cobu_Cat
 print(ninja_Brittany.pet.name)
 print(pet_Cobu_Cat.health)
 ninja_Brittany.walk().feed().walk()
-pet_Cobu_Cat.noise()
+pet_Cobu_Cat.noise().sleep()
 ninja_Brittany.bathe()
 print(pet_Cobu_Cat.health)
 
