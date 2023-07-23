@@ -14,9 +14,9 @@
                 <tr>
                     {%for j in range(num2)%}
                         {%if (j+i)%2==0:%}
-                            <td class="color1"></td>
+                            <td class="color1" style="background-color: {{color1}};"></td>
                         {%else:%}
-                            <td class="color2"></td>
+                            <td class="color2" style="background-color: {{color2}};"></td>
                         {%endif%}
                     {%endfor%}
                 </tr>

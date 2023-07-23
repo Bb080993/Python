@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin: 0% auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.high_or_low{
+    height: 100px;
+    width: 100%;
+    background-color: rgb(248, 55, 21);
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.guess_box{
+    height: 100px;
+    width: 100%;
+    background-color: rgb(41, 169, 238);
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#guess_button{
+    background-color: gold;
+    border-radius: 20%;
+    border: 2px solid black;
+    width: 50px;
+}
+
+#clear_game{
+    background-color: rgb(11, 194, 11);
+    border-radius: 20%;
+    border: 2px solid black;
+    width: 50px;
+}
