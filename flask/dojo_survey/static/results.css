@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+.container{
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 500px;
+    background-color: rgb(85, 116, 203);
+    color: white;
+}
+button{
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: 2px solid white;
+    width: 50px;
+
+}
