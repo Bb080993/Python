@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+h1{
+    margin: 10px;
+}
+
+button{
+    background-color: rgb(27, 167, 27);
+    border-radius: 20px;
+    width: 100px;
+    padding: 2px;
+    border: 1px solid black;
+    margin: 10px;
+    align-self: center;
+}

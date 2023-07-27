@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='read_all.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Here are our users!</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+            </tr>
+            {%for user in all_users%}
+                <tr>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.created_at}}</td>
+                    <td>{{user.updated_at}}</td>
+                </tr>
+            {%endfor%}
+        </table>
+        <form action="/">
+            <Button>Home</Button>
+        </form>
+    </div>
+    
+</body>
+</html>

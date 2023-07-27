@@ -20,9 +20,11 @@
                 <button id="guess_button">Guess</button>
             </form>
         </div>
-        <form action="/clear_session">
-            <button id="clear_game">Restart Game</button>
-        </form>
+        {%if session.guess==session.number%}
+            <form action="/clear_session">
+                <button id="clear_game">Restart Game</button>
+            </form>
+        {%endif%}
     </div>
 </body>
 </html>
