@@ -1,5 +1,5 @@
 from app import app
-from app.controllers import NEED TO CHOOSE A CONTROLLER TO IMPORT: PUT CONTROLLER NAME HERE
+from app.controllers import # CHOOSE CONTROLLERS TO IMPORT
 
  
 if __name__=="__main__":   
