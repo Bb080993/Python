@@ -1,5 +1,5 @@
 from app import app
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
 from app.models.dojo_model import Dojo
 
 
@@ -21,8 +21,20 @@ def dojo_ninjas(id):
         "id":id
     }
     one_dojo=Dojo.get_ninjas_from_dojo(data)
-    print("!!!!!!", one_dojo)
+    print("!!!!!!", one_dojo.id)
+    session['id']=one_dojo.id
+    print('?????', session['id'])
     return render_template("dojo_show.html", one_dojo=one_dojo)
+
+@app.route('/ninja/delete/<int:id>')
+def delete_ninja(id):
+    data={
+        "id":id
+    }
+    Dojo.delete_ninja(data)
+    return redirect(f'/dojo/{session["id"]}')
+
+
 
 
 

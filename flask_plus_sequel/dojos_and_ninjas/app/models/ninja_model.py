@@ -17,6 +17,23 @@ class Ninja:
         query="""INSERT INTO ninjas (first_name, last_name, age, dojo_id) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo_id)s)"""
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
+    
+    @classmethod
+    def get_one_ninja(cls, data):
+        query=  """
+                SELECT * FROM ninjas WHERE id=%(id)s;
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        #print("!!!Get One ninja!!!", results[0])
+        return results[0]
+       
+    @classmethod
+    def update_ninja(cls, data):
+        query= """UPDATE ninjas SET first_name=%(first_name)s, last_name=%(last_name)s, age=%(age)s 
+                    WHERE id=%(id)s"""
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        print("!!!Update Ninja!!!", results)
+        return results
     # @classmethod
     # def get_ninja_w_dojo(cls, data):
            

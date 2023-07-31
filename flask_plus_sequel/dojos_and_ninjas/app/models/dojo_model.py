@@ -20,7 +20,7 @@ class Dojo:
     def get_all_users(cls):
         query="""SELECT * FROM dojos"""
         results= connectToMySQL(cls.DB).query_db(query)
-        print(results)
+        #print(results)
         dojo_list=[]
         for dojo in results:
             dojo_list.append(cls(dojo))
@@ -29,7 +29,7 @@ class Dojo:
     def get_one_dojo(cls, id):
         query= """SELECT * FROM dojos WHERE id=%(id)s """
         results= connectToMySQL(cls.DB).query_db(query, id)[0]
-        print(results)
+        #print(results)
         return results
     @classmethod
     def get_ninjas_from_dojo(cls, data):
@@ -51,17 +51,10 @@ class Dojo:
                 "dojo_id":row ["dojo_id"] }
             dojo.ninjas.append(ninja_model.Ninja(ninja_data))
         return dojo
-
-            
-    # @classmethod
-    # def update_user_info(cls, data):
-    #     query= """UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s 
-    #                 WHERE idusers=%(id)s"""
-    #     results=connectToMySQL(cls.DB).query_db(query, data)
-    #     print(results)
-    #     return results
-    # @classmethod
-    # def delete_user(cls, data):
-    #     query="""DELETE FROM users WHERE idusers=%(id)s"""
-    #     results=connectToMySQL(cls.DB).query_db(query, data)
-    #     return results
+    @classmethod
+    def delete_ninja(cls, data):
+        query="""DELETE FROM ninjas WHERE id=%(id)s"""
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
+    
+    
