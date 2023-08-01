@@ -34,7 +34,7 @@
             <div class="show_authors">
                 <h2>All Authors</h2>
                 {%for author in all_authors%}
-                <a href="">{{author.name}}</a>
+                <a href="/author/{{author.id}}">{{author.name}}</a>
                 {%endfor%}
             </div>
             <a href="/books">Add Book</a>

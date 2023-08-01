@@ -14,6 +14,23 @@ def author_form():
     data=request.form
     author_model.Author.insert_author(data)
     return redirect("/authors")
+
+@app.route('/author/<int:id>')
+def one_author(id):
+    data={
+        "id":id
+    }
+    one_author=author_model.Author.get_one_author(data)
+    all_books=book_model.Book.get_all_books()
+    return render_template ("one_author.html", one_author=one_author, all_books=all_books)
+
+@app.route('/add_book_favorite', methods=["POST"])
+def add_authors_favorite_book():
+   print("!!!!!!!", request.form)
+
+   return redirect('/authors')
+
+
 #Example routes
 
 # @app.route('/dojos')          

@@ -1,5 +1,5 @@
 from app import app
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from app.models.users_model import User
 
 
@@ -16,6 +16,8 @@ def create_form():
         "last_name":request.form["last_name"],
         "email":request.form["email"]
     }
+    if not User.validate_user(data):
+        return redirect('/')
     new_user=User.save(data)
     print("This is our new user line 17", new_user)
     return redirect(f"/one_user/{new_user}") 

@@ -9,7 +9,7 @@ class Author:
         self.name = data['name']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.book_favorites=[]
+        self.favorite_books=[]
         #self.anything that is a many relationship to connect to=[]
         #self.if this is the many that needs to be equal eventually to one= None
     @classmethod
@@ -25,6 +25,37 @@ class Author:
         for author in results:
             author_list.append(cls(author))
         return author_list
+    @classmethod
+    def get_one_author(cls, data):
+        query="""
+                SELECT * FROM authors
+                LEFT JOIN favorites ON authors.id=favorites.author_id
+                LEFT JOIN books ON favorites.book_id=books.id
+            """
+        results=connectToMySQL(cls.DB).query_db(query, data)[0]
+        print(results)
+        return results
+    @classmethod
+    def add_to_favorites(cls, data):
+        query="""
+                INSERT INTO favorites (author_id, book_id)
+                VALUES (%(author_id)s, %(book_id)s;)
+            """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
+
+        # one_author=cls(results)
+        # for row in results:
+    #         book_data= {"id":row ["books.id"],
+    #             "title" :row ["title"],
+    #             "num_of_pages": row ["num_of_pages"],
+    #             "created_at": row ["books.created_at"],
+    #             "updated_at" :row ["books.updated_at"],
+    #             "dojo_id":row ["dojo_id"] }
+    #         dojo.ninjas.append(ninja_model.Ninja(ninja_data))
+    #     return dojo
+         
+    
 
 
     
