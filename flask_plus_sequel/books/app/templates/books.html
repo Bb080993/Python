@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='books.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="add_book">
+            <h2>Add Book</h2>
+            <form action="/add_book" method="post">
+                <label for="title">
+                    Title:
+                    <input type="text" name="title" id="title">
+                </label>
+                <br>
+                <label for="num_of_pages">
+                    Number of Pages:
+                    <input type="text" name="num_of_pages" id="num_of_pages">
+                </label>
+                <br>
+                <button>Add Book</button>
+            </form>
+            <a href="/authors">Add Author</a>
+        </div>
+        <div class="show_books">
+            <h2>All Books</h2>
+            {%for book in all_books%}
+            <a href="">{{book.title}}</a>
+            {%endfor%}
+        </div>
+    </div>
+</body>
+</html>

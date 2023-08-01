@@ -1,0 +1,62 @@
+/*To insert into HTML use*/ 
+/*<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+h2{
+    color: darkcyan;
+}
+.container{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+}
+.add_author{
+    padding: 10px;
+    border: 1px solid black;
+    background-color: rgb(191, 231, 245);
+    color: darkcyan;
+    height: 150px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+form  {
+    display: flex;
+    flex-direction: column;
+}
+.right_side_of_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.show_authors{
+    padding: 10px;
+    border: 1px solid black;
+    background-color: rgb(191, 231, 245);
+    height: 100%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button{
+    width: 50%;
+    align-self: center;
+    background-color: darkturquoise;
+    color: rgb(191, 231, 245);
+    border-radius: 25px;
+    border: 2px solid darkcyan;
+    height: 30px;
+}
