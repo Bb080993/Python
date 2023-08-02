@@ -1,6 +1,10 @@
 
 from app.config.mysqlconnection import connectToMySQL
 #THIS PAGE CONTAINS AN EXAMPLE MODEL OF OOP AND EXAMPLES OF EACH CRUD METHOD
+# from flask import flash
+# import re
+
+# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
 class User:
     DB = "users_schema"
@@ -70,3 +74,21 @@ class User:
                 "dojo_id":row ["dojo_id"] }
             dojo.ninjas.append(ninja_model.Ninja(ninja_data))
         return dojo
+    #Validation
+    # @staticmethod
+    # def validate_user(user):
+        
+    #     is_valid=True
+    #     if len(user['first_name'])<1:
+    #         flash("First Name Required")
+    #         is_valid=False
+    #     if len(user['last_name'])<1:
+    #         flash("Last Name Required")
+    #         is_valid=False
+    #     if len(user['email'])<1:
+    #         flash("Email Required")
+    #         is_valid=False
+    #     if not EMAIL_REGEX.match(user['email']):
+    #         flash("Invalid Email")
+    #         is_valid=False
+    #     return is_valid

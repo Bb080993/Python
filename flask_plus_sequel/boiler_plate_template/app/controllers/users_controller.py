@@ -14,7 +14,6 @@ def user_form():
 # @app.route('/dojos')          
 # def get_all_dojos():
 #     dojos=Dojo.get_all_users()
-#     #print (dojos)
 #     return render_template("show_all_dojos.html", dojos=dojos )
 
 # @app.route('/add_dojo', methods=['POST'])
@@ -29,9 +28,7 @@ def user_form():
 #         "id":id
 #     }
 #     one_dojo=Dojo.get_ninjas_from_dojo(data)
-#     print("!!!!!!", one_dojo.id)
 #     session['id']=one_dojo.id
-#     print('?????', session['id'])
 #     return render_template("dojo_show.html", one_dojo=one_dojo)
 
 # @app.route('/ninja/delete/<int:id>')
@@ -41,4 +38,17 @@ def user_form():
 #     }
 #     Dojo.delete_ninja(data)
 #     return redirect(f'/dojo/{session["id"]}')
+#
+#validation route
+# @app.route('/creating_user', methods=['POST'])
+# def create_form():
+#     data={
+#         "first_name":request.form["first_name"],
+#         "last_name":request.form["last_name"],
+#         "email":request.form["email"]
+#     }
+#     if not User.validate_user(data):
+#         return redirect('/')
+#     new_user=User.save(data)
+#     return redirect(f"/one_user/{new_user}") 
 
