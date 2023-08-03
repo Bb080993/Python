@@ -27,7 +27,12 @@ def one_author(id):
 @app.route('/add_book_favorite', methods=["POST"])
 def add_authors_favorite_book():
    print("!!!!!!!", request.form)
-
+   data={
+       "author_id":request.form["author_id"],
+       "book_id":request.form["book_id"]
+   }
+   author_model.Author.add_to_favorites(data)
+    
    return redirect('/authors')
 
 

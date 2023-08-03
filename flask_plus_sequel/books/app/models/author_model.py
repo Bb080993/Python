@@ -1,6 +1,7 @@
 
 from app.config.mysqlconnection import connectToMySQL
 #THIS PAGE CONTAINS AN EXAMPLE MODEL OF OOP AND EXAMPLES OF EACH CRUD METHOD
+from app.models import book_model
 
 class Author:
     DB = "books_schema"
@@ -31,30 +32,31 @@ class Author:
                 SELECT * FROM authors
                 LEFT JOIN favorites ON authors.id=favorites.author_id
                 LEFT JOIN books ON favorites.book_id=books.id
+                WHERE authors.id=%(id)s
             """
-        results=connectToMySQL(cls.DB).query_db(query, data)[0]
+        results=connectToMySQL(cls.DB).query_db(query, data)
         print(results)
-        return results
+        one_author=cls(results[0])
+        for row in results:
+            print(row)
+            book_data= {"id":row ["books.id"],
+                "title" :row ["title"],
+                "num_of_pages": row ["num_of_pages"],
+                "created_at": row ["books.created_at"],
+                "updated_at" :row ["books.updated_at"] }
+            one_author.favorite_books.append(book_model.Book(book_data))
+        return one_author
+         
     @classmethod
     def add_to_favorites(cls, data):
         query="""
                 INSERT INTO favorites (author_id, book_id)
-                VALUES (%(author_id)s, %(book_id)s;)
+                VALUES (%(author_id)s, %(book_id)s);
             """
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
 
-        # one_author=cls(results)
-        # for row in results:
-    #         book_data= {"id":row ["books.id"],
-    #             "title" :row ["title"],
-    #             "num_of_pages": row ["num_of_pages"],
-    #             "created_at": row ["books.created_at"],
-    #             "updated_at" :row ["books.updated_at"],
-    #             "dojo_id":row ["dojo_id"] }
-    #         dojo.ninjas.append(ninja_model.Ninja(ninja_data))
-    #     return dojo
-         
+
     
 
 

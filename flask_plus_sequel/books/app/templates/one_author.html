@@ -29,10 +29,10 @@
             <h2>Add Author's Favorite</h2>
             <form action="/add_book_favorite" method="post">
                 <input type="hidden" name="author_id" value="{{one_author.id}}">
-                <label for="titles"></label>
-                <select name="titles" id="titles">
+                <label for="book_id"></label>
+                <select name="book_id" >
                     {%for book in all_books%}
-                        <option name="book_id" value="{{book.id}}">{{book.title}}</option>
+                        <option value="{{book.id}}">{{book.title}}</option>
                     {% endfor %}
                 </select>
                 <button>Add</button>
