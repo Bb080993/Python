@@ -1,5 +1,5 @@
 from app import app
-from app.controllers import # CHOOSE CONTROLLERS TO IMPORT
+from app.controllers import users_controller
 
  
 if __name__=="__main__":   

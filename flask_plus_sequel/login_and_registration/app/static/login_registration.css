@@ -10,9 +10,53 @@
 .container{
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     padding: 30px;
     width: 100%;
-    border: 1px solid black;
+    
+}
+
+.registration{
+    background-color: lightgray;
+    color: rgb(0, 123, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 350px;
+
+
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login{
+    background-color: lightgrey;
+    color: limegreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    height: 300px;
+}
+#register{
+    background-color: rgb(0, 123, 255);
+    border-radius: 20px;
+    padding: 5px;
+    color: aqua;
+    border: 2px solid black;
+}
+#login{
+    background-color: limegreen;
+    border-radius: 20px;
+    padding: 5px;
+    color: darkgreen;
+    border: 2px solid black;
 }
