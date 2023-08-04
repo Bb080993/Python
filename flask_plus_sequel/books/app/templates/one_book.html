@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='one_book.css') }}">
     <title>One Book</title>
 </head>
 <body>
     <div class="container">
         <div class="book_favorite">
             <h2>Title: {{one_book.title}}</h2>
-            <p>Favorited by:</p>
+            <br>
+            <h3>Favorited by:</h3>
+            <br>
             {%for author in one_book.been_favorited_by_author%}
             <p>{{author.name}}</p>
+            <br>
             {%endfor%}
 
         </div>
         <div class="add_book_favorite">
             <h2>Add books favorite author</h2>
+            <br>
             <form action="/add_author_favorite" method="post">
                 <input type="hidden" name="book_id" value="{{one_book.id}}">
+                <label for="author_id">Author to favorite this book</label>
                 <select name="author_id" >
                     {%for author in all_authors%}
                     <option value="{{author.id}}">{{author.name}}</option>
                     {%endfor%}
                 </select>
+                <br>
                 <button>Submit</button>
             </form>
             <a href="/books">Back to Books</a>
