@@ -33,7 +33,7 @@ def add_authors_favorite_book():
    }
    author_model.Author.add_to_favorites(data)
     
-   return redirect('/authors')
+   return redirect(f'/author/request.form["author_id"]')
 
 
 #Example routes

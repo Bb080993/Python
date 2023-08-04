@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+.container{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    
+}
+.add_book_favorite{
+    border: 1px solid black;
+    padding: 20px;
+    height: 500px;
+  
+}
+.add_book_favorite{
+    border: 1px solid black;
+    padding: 20px;
+    height: 500px;
+
+}
+   

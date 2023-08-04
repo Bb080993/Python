@@ -28,7 +28,7 @@
         <div class="show_books">
             <h2>All Books</h2>
             {%for book in all_books%}
-            <a href="">{{book.title}}</a>
+            <a href="/one_book/{{book.id}}">{{book.title}}</a>
             {%endfor%}
         </div>
     </div>

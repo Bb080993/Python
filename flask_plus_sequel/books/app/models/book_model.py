@@ -1,4 +1,5 @@
 from app.config.mysqlconnection import connectToMySQL
+from app.models import author_model
 
 
 class Book:
@@ -24,3 +25,30 @@ class Book:
         for book in results:
             book_list.append(cls(book))
         return book_list
+    @classmethod
+    def get_one_book(cls, data):
+        query="""
+                SELECT * FROM books
+                LEFT JOIN favorites ON favorites.book_id=books.id
+                LEFT JOIN authors ON authors.id=favorites.author_id
+                WHERE books.id=%(id)s
+            """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        print(results)
+        one_book=cls(results[0])
+        for row in results:
+            print(row)
+            author_data= {"id":row ["authors.id"],
+                "name" :row ["name"],
+                "created_at": row ["authors.created_at"],
+                "updated_at" :row ["authors.updated_at"] }
+            one_book.been_favorited_by_author.append(author_model.Author(author_data))
+        return one_book
+    @classmethod
+    def add_to_author_favorites(cls, data):
+        query="""
+                INSERT INTO favorites (author_id, book_id)
+                VALUES (%(author_id)s, %(book_id)s);
+            """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results

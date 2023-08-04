@@ -41,7 +41,7 @@ def login():
     user_in_db=User.find_user(data)
     if not user_in_db:
         flash("Invalid Email/password", "login")
-        return re   `direct ('/')
+        return redirect ('/')
     if not bcrypt.check_password_hash(user_in_db.password, hashed_pw):
         flash("Invalid Email/password", "login")
         return redirect ('/')
@@ -50,6 +50,9 @@ def login():
 
 @app.route('/dashboard/<int:id>')
 def dashboard_page(id):
+    if not "user_id" in session:
+        return redirect('/')
+    
     data={
         'id':id
     }
