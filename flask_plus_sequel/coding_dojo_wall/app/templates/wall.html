@@ -43,10 +43,10 @@
                 {%for post in all_posts_with_user%}
                 <p>Posted by: {{post.user.first_name}}</p>
                 <p>{{post.content_text}}</p>
+                <br>
                     {%if session[user_id]==post.user.id%}
                     <a href="/delete">delete</a>
                     {%endif%}
-                <br>
                 {%endfor%}
 
             </div>
