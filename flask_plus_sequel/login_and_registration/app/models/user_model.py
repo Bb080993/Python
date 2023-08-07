@@ -51,7 +51,7 @@ class User:
             is_valid= False
         return is_valid
     @classmethod
-    def find_user(cls, email):
+    def find_user_by_email(cls, email):
         query="""SELECT * FROM users WHERE email=%(email)s"""
         response=connectToMySQL(cls.DB).query_db(query, email)
 

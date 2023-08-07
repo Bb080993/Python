@@ -1,3 +1,19 @@
+Validations in html:
+
+{%with messages=get_flashed_messages(category_filter=[''])%}
+    {%if messages%}
+        {%for message in messages%}
+            <p>{{message}}</p>
+        {%endfor%}
+    {%endif%}
+{%endwith%}
+
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+
+Login and Registration Code:
+
+Controller:
 from app import app
 from flask import Flask, render_template, redirect, request, session, flash
 from app.models.user_model import  User
@@ -34,7 +50,6 @@ def register():
 
 @app.route('/login', methods=["POST"])
 def login():
-    hashed_pw=request.form['password']
     data={
         "email":request.form["email"]
     }
@@ -42,7 +57,7 @@ def login():
     if not user_in_db:
         flash("Invalid Email/password", "login")
         return redirect ('/')
-    if not bcrypt.check_password_hash(user_in_db.password, hashed_pw):
+    if not bcrypt.check_password_hash(user_in_db.password, request.form["password"]):
         flash("Invalid Email/password", "login")
         return redirect ('/')
     session["user_id"]=user_in_db.id
@@ -66,6 +81,13 @@ def logout():
     session.clear()
     return redirect ("/")
 
+    Model:
 
+        @classmethod
+    def find_user_by_email(cls, email):
+        query="""SELECT * FROM users WHERE email=%(email)s"""
+        response=connectToMySQL(cls.DB).query_db(query, email)
 
-
+        if len(response)<1:
+            return False
+        return cls(response[0])
