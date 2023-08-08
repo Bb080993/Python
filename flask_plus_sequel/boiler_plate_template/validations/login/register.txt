@@ -24,45 +24,50 @@ bcrypt=Bcrypt(app)
 def user_form():
     return render_template("login_registration.html")
 
-@app.route('/register', methods=["POST"])
-def register():
-    if User.find_user_by_email(request.form):
-        flash("Account already exists")
-        return redirect ('/')
-    #check if email is unique/not in database yet
- 
-    
-    if not User.validate_user(request.form):
-        return redirect('/')
-    pw_hash = bcrypt.generate_password_hash(request.form['password'])
-    confirm_hash= bcrypt.generate_password_hash(request.form['confirm_password'])
+@app.route("/register", methods=["POST"])
+def register_user():
+    print(request.form)
     data={
+        "email": request.form["email"]
+    }
+    print(data)
+    if not User.validate_registration(request.form):
+        return redirect('/')
+    if User.find_user_by_email(data):
+        flash("User already exists", "register")
+        return redirect("/")
+    hash_pw= bcrypt.generate_password_hash(request.form['password'])
+    hash_confirm_pw= bcrypt.generate_password_hash(request.form["confirm_password"])
+    data= {
         "first_name": request.form["first_name"],
         "last_name": request.form["last_name"],
         "email": request.form["email"],
-        "password": pw_hash,
-        "confirm_password": confirm_hash
+        "password": hash_pw,
+        "confirm_password": hash_confirm_pw
     }
+    
     user=User.insert_user(data)
-    print("!!!!!!!!!", user)
     session["user_id"]=user
-    return redirect(f'/dashboard/{session["user_id"]}')
+
+    return redirect (f"/wall/{session['user_id']}")
 
 @app.route('/login', methods=["POST"])
-def login():
-    hashed_pw=request.form['password']
+def login_user():
     data={
         "email":request.form["email"]
     }
-    user_in_db=User.find_user(data)
+    user_in_db=User.find_user_by_email(data)
     if not user_in_db:
-        flash("Invalid Email/password", "login")
-        return redirect ('/')
-    if not bcrypt.check_password_hash(user_in_db.password, hashed_pw):
-        flash("Invalid Email/password", "login")
-        return redirect ('/')
+        flash("Invalid email/password", "login")
+        return redirect('/')
+    if not bcrypt.check_password_hash(user_in_db.password, request.form["password"]):
+        flash("Invalid email/password", "login")
+        return redirect('/')
+
+    
     session["user_id"]=user_in_db.id
-    return redirect(f'/dashboard/{session["user_id"]}')
+
+    return redirect(f"/wall/{session['user_id']}")
 
 @app.route('/dashboard/<int:id>')
 def dashboard_page(id):

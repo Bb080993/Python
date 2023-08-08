@@ -45,6 +45,13 @@ class Post:
 
             all_posts.append(one_post)
         return all_posts
+    @classmethod
+    def delete_one_post(cls, data):
+        query=  """
+                DELETE FROM posts WHERE id=%(id)s;
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
     @staticmethod
     def validate_post(data):
         is_valid=True
@@ -54,3 +61,4 @@ class Post:
             is_valid=False
             
         return is_valid
+    

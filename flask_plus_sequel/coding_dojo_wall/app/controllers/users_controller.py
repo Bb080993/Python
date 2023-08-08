@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request,session, flash
 from flask_bcrypt import Bcrypt
 from app.models.user_model import User
 from app.models.post_model import Post
+from app.models.comment_model import Comment
 
 bcrypt=Bcrypt(app)
 
@@ -18,11 +19,11 @@ def register_user():
         "email": request.form["email"]
     }
     print(data)
-    if User.check_for_email(data):
-        flash("User already exists", "register")
-        return redirect("/")
     if not User.validate_registration(request.form):
         return redirect('/')
+    if User.find_user_by_email(data):
+        flash("User already exists", "register")
+        return redirect("/")
     hash_pw= bcrypt.generate_password_hash(request.form['password'])
     hash_confirm_pw= bcrypt.generate_password_hash(request.form["confirm_password"])
     data= {
@@ -47,8 +48,8 @@ def user_wall(id):
     }
     one_user=User.get_one_user(data)
     all_posts_with_user=Post.get_all_posts_with_user()
+    # all_comments_with_post=Comment.get_all_comments_with_post()
     return render_template("wall.html", one_user=one_user, all_posts_with_user=all_posts_with_user)
-
 @app.route('/login', methods=["POST"])
 def login_user():
     data={

@@ -13,4 +13,12 @@ def post_content():
     Post.add_post(data)
     return redirect (f"/wall/{request.form['user_id']}")
 
+@app.route("/delete/<int:id>")
+def delete_post(id):
+    data={
+        "id":id
+    }
+    Post.delete_one_post(data)
+    return redirect(f"/wall/{session['user_id']}")
+
 
