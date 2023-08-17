@@ -1,7 +1,8 @@
 from app import app
-from flask import Flask, render_template, redirect, request,session
+from flask import Flask, render_template, redirect, request, session, flash
 from app.models import #PUT WHATEVER THE MODELS ARE. Do not put class names; will create circular import in many to many relationships
-
+from flask_bcrypt import Bcrypt
+bcrypt=Bcrypt(app)
 
 
 

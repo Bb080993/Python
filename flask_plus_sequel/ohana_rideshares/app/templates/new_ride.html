@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Ride</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='new_ride.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Request a ride</h1>
+            <div class="right">
+                <a href="/dashboard">Home</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+        <main>
+            <form action="/add_ride" method="post">
+                    {%with messages=get_flashed_messages(category_filter=['rides'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                <input type="hidden" name="rider_id" value="{{session['user_id']}}">
+                <label for="destination">
+                    Destination:
+                    <input type="text" name="destination">
+                </label>
+                <label for="pickup_location">
+                    Pick-up Location:
+                    <input type="text" name="pickup_location">
+                </label>
+                <label for="date">
+                    Rideshare Date:
+                    <input type="date" name="date">
+                </label>
+                <label for="details">
+                    Details:
+                    <textarea name="details" cols="30" rows="10"></textarea>
+                </label>
+                <button>Submit Request</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

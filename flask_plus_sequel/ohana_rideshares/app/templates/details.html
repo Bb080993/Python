@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='details.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/dashboard">Home</a>
+            <a href="/logout">Logout</a>
+        </nav>
+        <main>
+            <h1>Ready for your trip to the {{one_ride.destination}}?</h1>
+            <p>Who's driving? {{one_ride.driver.first_name}}</p>
+            <p>Who's coming along? {{one_ride.rider.first_name}}</p>
+            <p>Date? {{one_ride.date}}</p>
+            <p>Pick-Up Location: {{one_ride.pickup_location}}</p>
+            <p>Details: {{one_ride.details}}</p>
+            <div class="bottom_links">
+                <a href="/rides/edit/{{one_ride.id}}">Edit</a>
+                <a href="/delete/{{one_ride.id}}">Delete</a>
+            </div>
+        </main>
+    </div>
+    
+</body>
+</html>

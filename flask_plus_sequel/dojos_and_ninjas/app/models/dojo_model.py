@@ -40,7 +40,7 @@ class Dojo:
         results=connectToMySQL(cls.DB).query_db(query, data)
        # print("Get_ninjas_from_dojo results", results)
         dojo=cls(results[0])
-        #print("!!!!!!!", dojo)
+        #print("THIS IS GET NINJAS WITH DOJO QUERY ", dojo)
         for row in results:
             ninja_data= {"id":row ["ninjas.id"],
                 "first_name" :row ["first_name"],

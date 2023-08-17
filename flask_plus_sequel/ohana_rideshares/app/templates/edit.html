@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Ride</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Update the Details</h1>
+            <div class="nav_right">
+                <a href="/dashboard">Home</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+        <main>
+            <form action="/edit_ride" method="post">
+                {%with messages=get_flashed_messages(category_filter=['rides'])%}
+                    {%if messages%}
+                        {%for message in messages%}
+                            <p>{{message}}</p>
+                        {%endfor%}
+                    {%endif%}
+                {%endwith%}
+                <input type="hidden" name="id" value="{{one_ride.id}}">
+                <label for="pickup_location">
+                    Pick-up Location:
+                    <input type="text" value="{{one_ride.pickup_location}}" name="pickup_location">
+                </label>
+                <label for="details">
+                    Details:
+                    <textarea name="details" cols="30" rows="10">{{one_ride.details}}</textarea>
+                </label>
+                <button>Submit Request</button>
+            </form>
+        </main>
+    </div>
+    
+</body>
+</html>

@@ -1,27 +1,77 @@
 
 from app.config.mysqlconnection import connectToMySQL
-#THIS PAGE CONTAINS AN EXAMPLE MODEL OF OOP AND EXAMPLES OF EACH CRUD METHOD
-# from flask import flash
-# import re
 
-# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+from flask import flash
+import re
 
-# class User:
-#     DB = "users_schema"
-#     def __init__(self, data):
-#         self.id= data['id']
-#         self.first_name = data['first_name']
-#         self.last_name = data['last_name']
-#         self.email = data['email']
-#         self.created_at = data['created_at']
-#         self.updated_at = data['updated_at']
-#         #self.anything that is a many relationship to connect to=[]
-#         #self.if this is the many that needs to be equal eventually to one= None
-#     #Insert into database
-#     @classmethod
-#     def insert_user(cls, data):
-#         query = "INSERT INTO users (first_name, last_name, email) VALUES (%(first_name)s, %(last_name)s, %(email)s);"    
-#         return connectToMySQL(cls.DB).query_db(query, data)
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+
+DB = "ohana_rideshare"
+
+class User:
+    DB = "ohana_rideshare"
+    def __init__(self, data):
+        self.id= data['id']
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.password=data["password"]
+        self.created_at = data['created_at']
+        self.updated_at = data['updated_at']
+        self.rides=[]
+
+        #Validation of login
+    @staticmethod
+    def validate_user(user):
+        
+        is_valid=True
+        if len(user['first_name'])<2:
+            flash("First Name Required. Must be at least 2 characters.", "register")
+            is_valid=False
+        if len(user['last_name'])<2:
+            flash("Last Name Required. Must be at least 2 characters.", "register")
+            is_valid=False
+        if len(user['email'])<1:
+            flash("Email Required", "register")
+            is_valid=False
+        if not EMAIL_REGEX.match(user['email']):
+            flash("Invalid Email", "register")
+            is_valid=False
+        if user["password"]!= user["confirm_password"]:
+            flash("Passwords do not match", "register")
+            is_valid=False
+        query="""SELECT * FROM users WHERE email=%(email)s"""
+        response=connectToMySQL(DB).query_db(query, user)
+        print(response)
+        if len(response)>0:
+            flash("User already exists", 'register')
+            is_valid= False
+        return is_valid
+
+    #Insert into database
+    @classmethod
+    def insert_user(cls, data):
+        query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"    
+        return connectToMySQL(cls.DB).query_db(query, data)
+    
+    #Get user by id
+    @classmethod
+    def get_user_by_id(cls, id):
+        query= """SELECT * FROM users WHERE id=%(id)s """
+        results= connectToMySQL(cls.DB).query_db(query, id)[0]
+        return results
+    
+    #Find user by email for login
+    @classmethod
+    def find_user_by_email(cls, email):
+        query="""SELECT * FROM users WHERE email=%(email)s"""
+        response=connectToMySQL(cls.DB).query_db(query, email)
+        print(response)
+
+        if len(response)<1:
+            return False
+        return cls(response[0])
+
 #     #Get all from table in database
 #     @classmethod
 #     def get_all_users(cls):
@@ -53,25 +103,6 @@ from app.config.mysqlconnection import connectToMySQL
 #         query="""DELETE FROM users WHERE id=%(id)s"""
 #         results=connectToMySQL(cls.DB).query_db(query, data)
 #         return results
-
-# #Find user by email for login
-#     @classmethod
-#     def find_user_by_email(cls, email):
-#         query="""SELECT * FROM users WHERE email=%(email)s"""
-#         response=connectToMySQL(cls.DB).query_db(query, email)
-#         print(response)
-
-#         if len(response)<1:
-#             return False
-#         return cls(response[0])
-#     #Get user by id
-#     @classmethod
-#     def get_user_by_id(cls, id):
-#         query= """SELECT * FROM users WHERE id=%(id)s """
-#         results= connectToMySQL(cls.DB).query_db(query, id)[0]
-#         print("!!!!!!!!!!!", results)
-#         return results
-
 
 
 #     #JOIN 2 tables. Get the one with its many
@@ -148,30 +179,6 @@ from app.config.mysqlconnection import connectToMySQL
 #         print("!ONE RECIPE WITH USER!",one_recipe_with_user)
 #         return one_recipe_with_user
         
-    #Validation of login
-    # @staticmethod
-    # def validate_user(user):
-        
-    #     is_valid=True
-    #     if len(user['first_name'])<1:
-    #         flash("First Name Required")
-    #         is_valid=False
-    #     if len(user['last_name'])<1:
-    #         flash("Last Name Required")
-    #         is_valid=False
-    #     if len(user['email'])<1:
-    #         flash("Email Required")
-    #         is_valid=False
-    #     if not EMAIL_REGEX.match(user['email']):
-    #         flash("Invalid Email")
-    #         is_valid=False
-    #     query="""SELECT * FROM users WHERE email=%(email)s"""
-    #     response=connectToMySQL(DB).query_db(query, form_data)
-    #     print(response)
-    #     if len(response)>0:
-    #         flash("User already exists", 'register')
-    #         is_valid= False
-    #     return is_valid
 
     #Validation of form
 
