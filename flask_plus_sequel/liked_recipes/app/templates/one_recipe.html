@@ -29,8 +29,27 @@
                 {%endif%}
                 <p>Instructions: {{one_recipe_with_user.instructions}}</p>
                 <p>Date Made: {{one_recipe_with_user.date_cooked}}</p>
-    
+                <p>Likes: {{one_recipe_with_user.num_of_likes}}</p>
             </div>
+
+            <a href="/like/{{one_recipe_with_user.id}}">Like</a>
+            {%with messages=get_flashed_messages(category_filter=['likes'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+      
+            <a href="/unlike/{{one_recipe_with_user.id}}">Unlike</a>
+            {%with messages=get_flashed_messages(category_filter=['unlike'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+     
         </main>
 
     </div>

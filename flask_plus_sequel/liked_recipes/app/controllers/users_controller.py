@@ -67,6 +67,28 @@ def login_user():
 
     return redirect("/recipes")
 
+@app.route("/like/<int:id>")
+def add_like(id):
+    data={
+        "user_id": session["user_id"],
+        "recipe_id": id
+    }
+    if not User.only_like_once(data):
+        return redirect(f"/view/recipe/{data['recipe_id']}")
+    User.like_recipe(data)
+    return redirect(f"/view/recipe/{data['recipe_id']}")
+
+@app.route("/unlike/<int:id>")
+def delete_like(id):
+    data={
+        "user_id": session["user_id"],
+        "recipe_id": id
+    }
+    User.must_have_liked(data)
+    User.unlike_recipe(data)
+
+    return redirect(f"/view/recipe/{data['recipe_id']}")
+
 @app.route('/logout')
 def logout():
     session.clear()

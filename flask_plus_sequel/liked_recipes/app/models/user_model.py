@@ -4,10 +4,10 @@ from flask import flash
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-DB = "recipes"
+DB = "liked_recipes"
 
 class User:
-    DB = "recipes"
+    DB = "liked_recipes"
     def __init__(self, data):
         self.id= data['id']
         self.first_name = data['first_name']
@@ -68,3 +68,49 @@ class User:
         results= connectToMySQL(cls.DB).query_db(query, id)[0]
         print("!!!!!!!!!!!", results)
         return results
+    
+    @classmethod
+    def like_recipe(cls, data):
+        query= """
+                INSERT INTO likes (user_id, recipe_id)
+                VALUES (%(user_id)s, %(recipe_id)s)
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
+    
+    @classmethod
+    def unlike_recipe(cls, data):
+        query= """
+                DELETE FROM likes
+                WHERE user_id=%(user_id)s
+                AND recipe_id=%(recipe_id)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
+    
+    @staticmethod
+    def only_like_once(data):
+        is_valid=True
+        query="""
+        SELECT * FROM likes WHERE user_id=%(user_id)s AND recipe_id=%(recipe_id)s
+        """
+        results=connectToMySQL(DB).query_db(query, data)
+        # print("VALIDATE ", results)
+        if results:
+            flash("User already liked!", "likes")
+            is_valid=False
+        return is_valid
+
+    @staticmethod
+    def must_have_liked(data):
+        is_valid=True
+        query="""
+        SELECT * FROM likes WHERE user_id=%(user_id)s AND recipe_id=%(recipe_id)s
+        """
+        results=connectToMySQL(DB).query_db(query, data)
+        print("VALIDATE ", results)
+        if not results:
+            flash("Cannot unlike until you have liked!", "unlike")
+            is_valid=False
+        return is_valid
+

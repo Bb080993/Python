@@ -33,6 +33,7 @@
                     <th>Under</th>
                     <th>Posted By</th>
                     <th>Actions</th>
+                    <th>Likes</th>
                 </tr>
                 {%for recipe in all_recipes_with_user%}
                 <tr>
@@ -48,6 +49,7 @@
                     {%else%}
                     <td><a href="/view/recipe/{{recipe.id}}">View Recipe</a></td>
                     {%endif%}
+                    <td>{{recipe.num_of_likes}}</td>
                 </tr>
                 {%endfor%}
              

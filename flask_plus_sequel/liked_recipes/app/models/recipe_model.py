@@ -3,7 +3,7 @@ from app.models import user_model
 from flask import flash
 
 class Recipe:
-    DB = "recipes"
+    DB = "liked_recipes"
     def __init__(self, data):
         self.id= data['id']
         self.name=data["name"]
@@ -15,11 +15,14 @@ class Recipe:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.created_by= None
+        self.num_of_likes=data['num_of_likes']
+        self.likes=[]
 
     @classmethod
     def get_all_recipes_with_user(cls):
         query="""
-                SELECT * FROM recipes
+                SELECT *, (SELECT (COUNT(*)) FROM likes WHERE recipes.id=recipe_id)
+                 AS num_of_likes FROM recipes
                 LEFT JOIN users ON users.id=recipes.user_id
             """
         results=connectToMySQL(cls.DB).query_db(query)
@@ -45,8 +48,9 @@ class Recipe:
     @classmethod
     def one_recipe_with_user(cls,data):
         query="""
-                SELECT * FROM recipes
-                LEFT JOIN users ON users.id=recipes.user_id
+                SELECT *, (SELECT (COUNT(*)) fROM likes WHERE recipe_id=%(id)s) AS num_of_likes FROM recipes
+                LEFT JOIN likes on likes.recipe_id=recipes.id
+                LEFT JOIN users ON users.id=likes.user_id
                 WHERE recipes.id=%(id)s
             """
         results=connectToMySQL(cls.DB).query_db(query, data)
@@ -61,9 +65,16 @@ class Recipe:
                 "created_at":row["users.created_at"],
                 "updated_at": row["users.updated_at"]
             }
+            one_recipe_like_info={
+                "id": row["likes.id"],
+                "user_id": row['likes.user_id'],
+                "recipe_id":row["likes.recipe_id"]
+            }
             user=user_model.User(one_recipe_user_info)
+            likes=user_model.User(one_recipe_like_info)
             one_recipe_with_user.created_by=user
-        print("!ONE RECIPE WITH USER!",one_recipe_with_user)
+            one_recipe_with_user.likes.append(likes)
+        print("!ONE RECIPE WITH USER!",one_recipe_with_user.__dict__)
         return one_recipe_with_user
         
     @classmethod
@@ -92,6 +103,15 @@ class Recipe:
                 """
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
+    
+    @classmethod
+    def all_likes(cls, data):
+        query="""
+                SELECT * FROM likes
+                WHERE user_id=%(user_id)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
     @staticmethod
     def validate_new_recipe(data):
         is_valid=True
@@ -112,4 +132,6 @@ class Recipe:
             flash("Does your recipe take less than 30 minutes?", 'recipe')
             is_valid=False
         return is_valid
+    
+
     
