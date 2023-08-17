@@ -97,3 +97,33 @@ def logout():
         if len(response)<1:
             return False
         return cls(response[0])
+
+
+
+ {%for like in one_recipe_with_user.likes%}
+{%if session['user_id']!= like.user_id%}
+
+{%else%}
+            {%endif%}
+            {%endfor%}
+
+{%if one_recipe_with_user.created_by.id and one_recipe_with_user.id not in like%}
+            <a href="/like/{{one_recipe_with_user.id}}">Like</a>
+            {%with messages=get_flashed_messages(category_filter=['likes'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+            {%else%}
+            <a href="/unlike/{{one_recipe_with_user.id}}">Unlike</a>
+            {%with messages=get_flashed_messages(category_filter=['unlike'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+
+                    {%endif%}

@@ -84,7 +84,8 @@ def delete_like(id):
         "user_id": session["user_id"],
         "recipe_id": id
     }
-    User.must_have_liked(data)
+    if not User.must_have_liked(data):
+        return redirect(f"/view/recipe/{data['recipe_id']}")
     User.unlike_recipe(data)
 
     return redirect(f"/view/recipe/{data['recipe_id']}")

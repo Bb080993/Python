@@ -1,5 +1,6 @@
 from app.config.mysqlconnection import connectToMySQL
 from app.models import user_model
+from app.models import like
 from flask import flash
 
 class Recipe:
@@ -17,6 +18,7 @@ class Recipe:
         self.created_by= None
         self.num_of_likes=data['num_of_likes']
         self.likes=[]
+        self.likes2=[]
 
     @classmethod
     def get_all_recipes_with_user(cls):
@@ -50,7 +52,7 @@ class Recipe:
         query="""
                 SELECT *, (SELECT (COUNT(*)) fROM likes WHERE recipe_id=%(id)s) AS num_of_likes FROM recipes
                 LEFT JOIN likes on likes.recipe_id=recipes.id
-                LEFT JOIN users ON users.id=likes.user_id
+                LEFT JOIN users ON users.id=recipes.user_id
                 WHERE recipes.id=%(id)s
             """
         results=connectToMySQL(cls.DB).query_db(query, data)
@@ -68,13 +70,19 @@ class Recipe:
             one_recipe_like_info={
                 "id": row["likes.id"],
                 "user_id": row['likes.user_id'],
-                "recipe_id":row["likes.recipe_id"]
+                "recipe_id":row["recipe_id"]
             }
             user=user_model.User(one_recipe_user_info)
-            likes=user_model.User(one_recipe_like_info)
+            one_like=like.Like(one_recipe_like_info)
+            print("LIKES",one_like)
             one_recipe_with_user.created_by=user
-            one_recipe_with_user.likes.append(likes)
+            one_recipe_with_user.likes.append(one_like)
+            one_recipe_with_user.likes2.append(row['likes.user_id'])
+            # for like in one_recipe_with_user.likes:
+            #     print (like.__dict__)
         print("!ONE RECIPE WITH USER!",one_recipe_with_user.__dict__)
+        print("LIKES IN RECIPE", one_recipe_with_user.likes)
+        print("LIKES 2", one_recipe_with_user.likes)
         return one_recipe_with_user
         
     @classmethod
@@ -84,6 +92,7 @@ class Recipe:
                 VALUES (%(name)s, %(description)s, %(instructions)s, %(date_cooked)s, %(less_than_30)s, %(user_id)s)
                 """
         results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
 
     @classmethod
     def delete_a_recipe(cls, id):
