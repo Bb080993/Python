@@ -53,3 +53,24 @@ def user_form():
 #     new_user=User.save(data)
 #     return redirect(f"/one_user/{new_user}") 
 
+# @app.route("/like/<int:id>")
+# def add_like(id):
+#     data={
+#         "user_id": session["user_id"],
+#         "recipe_id": id
+#     }
+   
+#     User.like_recipe(data)
+#     return redirect(f"/view/recipe/{data['recipe_id']}")
+
+# @app.route("/unlike/<int:id>")
+# def delete_like(id):
+#     data={
+#         "user_id": session["user_id"],
+#         "recipe_id": id
+#     }
+#     User.unlike_recipe(data)
+
+#     return redirect(f"/view/recipe/{data['recipe_id']}")
+
+

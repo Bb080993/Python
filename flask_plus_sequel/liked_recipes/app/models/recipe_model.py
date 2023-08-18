@@ -67,21 +67,10 @@ class Recipe:
                 "created_at":row["users.created_at"],
                 "updated_at": row["users.updated_at"]
             }
-            one_recipe_like_info={
-                "id": row["likes.id"],
-                "user_id": row['likes.user_id'],
-                "recipe_id":row["recipe_id"]
-            }
+
             user=user_model.User(one_recipe_user_info)
-            one_like=like.Like(one_recipe_like_info)
-            print("LIKES",one_like)
             one_recipe_with_user.created_by=user
-            one_recipe_with_user.likes.append(one_like)
             one_recipe_with_user.likes2.append(row['likes.user_id'])
-            # for like in one_recipe_with_user.likes:
-            #     print (like.__dict__)
-        print("!ONE RECIPE WITH USER!",one_recipe_with_user.__dict__)
-        print("LIKES IN RECIPE", one_recipe_with_user.likes)
         print("LIKES 2", one_recipe_with_user.likes)
         return one_recipe_with_user
         
